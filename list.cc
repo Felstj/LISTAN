@@ -10,8 +10,12 @@ List::List()
   sentl.next = nullptr;
   sentf.next = sentl.prev;
   sentl.prev = sentf.next;
+  
   // int var;
   // int* ptri;
   // var = 42;
   // ptri = &var;
+
+
+  //joolle committing to the git hubber
 }
