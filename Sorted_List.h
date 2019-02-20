@@ -5,7 +5,7 @@
 
 class Sorted_List{
 public:
-  Sorted_List();
+  Sorted_List(int data);
   std::vector<int> Lista{};
   Sorted_List(std::initializer_list<int> medlemmar);
   //konstruktor som kan ta varierande många integers

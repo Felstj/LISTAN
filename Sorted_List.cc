@@ -35,18 +35,32 @@ bool Sorted_List::is_empty()
   sentl.next = nullptr;
   //får för mig att detta är det ända denna konstuktorn skall göra
   //resten skall lösas på andra ställen.
+    sort(Lista.begin(),Lista.end());
+    int tmp;
+    for (size_t i{0};i<Lista.size();++i)
+    {
 
-  // sentf.next = &sentl.tal;
-  // sentl.prev = &sentf.tal;
-  // Node* p1= new Node; //allocerar och konstruerar classen Node i heapen
-  // p1 -> next = &sentl.tal;
-  // p1 -> prev = &sentf.tal;
-  // p1->tal = var; //tilldela int delen i classen, var
-  // sentl.prev = &p1->tal;
-  // sentf.next = &p1->tal;
-  // delete p1;
+      tmp=Lista.at(i)
+      insert(tmp);
+    }
+
 }
-Sorted_List Sorted_List::insert(Sorted_List & Lista)
+Sorted_List Sorted_List::insert(int  data)
 {
 
+
+  Node* p1= new Node; //allocerar och konstruerar classen Node i heapen
+  p1->tal = data; //tilldela int delen i classen, var
+
+  p1 -> next = &sentl.tal;
+  p1 -> prev = sentl.prev;
+
+  sentl.prev = &p1->tal;
+
+  if(p1->next==sentl.tal)
+  {
+  sentf.next = &p1->tal;
+  }
+
+  delete p1;
 }
