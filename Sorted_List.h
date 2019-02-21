@@ -5,25 +5,28 @@
 
 class Sorted_List{
 public:
-  Sorted_List(int data);
-  std::vector<int> Lista{};
-  Sorted_List(std::initializer_list<int> medlemmar);
+
+  Sorted_List();
+ Sorted_List(std::initializer_list<int> medlemmar);
+ void insert(int data);
   //konstruktor som kan ta varierande många integers
   bool is_empty();
-  //~Sorted_List();
+  ~Sorted_List();
+
 private:
   class Node //noder till listan
   {
   public:
-    int* next;
+    Node();
+    ~Node();
+    Node* next;
     int tal;
-    int* prev;
+    Node* prev;
   private:
   };
   Node* first; //accessblock i classen
   Node* last; //accessblock i classen
-  Node sentf; //sentinell i listan
-  Node sentl; //sentinell i listan
+
 };
 
 

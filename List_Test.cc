@@ -10,11 +10,8 @@ TEST_CASE("empty list")
   CHECK(S.is_empty());
 }
 
-TEST_CASE("filled list")
+TEST_CASE("Filled list")
 {
-  Sorted_List S{7};
-  CHECK_FALSE(S.is_empty());
-  SECTION("Fler parametrar")
-  Sorted_List S{1,2,3,4};
-  CHECK_FALSE(S.is_empty());
+      Sorted_List L{43,3,3,3,3,3};
+      CHECK_FALSE(L.is_empty());
 }

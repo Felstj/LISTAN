@@ -4,19 +4,28 @@
 
 using namespace std;
 Sorted_List::Sorted_List()
-:first{}, last{}, sentf{}, sentl{}
+:first{}, last{}
 {
-  first = &sentf; //first obectet i classen pekar nu på den första sentinellen
-  last = &sentl;  //last obectet i classen pekar nu på den sista sentinellen
-  sentf.prev = nullptr;
-  sentl.next = nullptr;
-  sentf.next = &sentl.tal;
-  sentl.prev = &sentf.tal;
+  first = new Node;
+  last = new Node;
+  first->next=last;
+  last->prev=first;
+  first->prev = nullptr;
+  last->next = nullptr;
+
+}
+
+Sorted_List::~Sorted_List()
+{
+  if(first->next)
+  {
+delete first;
+  }
 }
 
 bool Sorted_List::is_empty()
 {
-  if (sentf.next == &sentl.tal )
+  if (first->next == last && last->prev==first)
   {
     return true;
   }
@@ -27,40 +36,44 @@ bool Sorted_List::is_empty()
 }
 
  Sorted_List::Sorted_List(initializer_list<int> medlemmar)
- :first{},last{},sentf{},sentl{}, Lista(medlemmar)
+ :first{},last{}
 {
-  first = &sentf;
-  last = &sentl;
-  sentf.prev = nullptr;
-  sentl.next = nullptr;
-  //får för mig att detta är det ända denna konstuktorn skall göra
-  //resten skall lösas på andra ställen.
-    sort(Lista.begin(),Lista.end());
-    int tmp;
-    for (size_t i{0};i<Lista.size();++i)
-    {
-
-      tmp=Lista.at(i)
-      insert(tmp);
-    }
-
-}
-Sorted_List Sorted_List::insert(int  data)
-{
+  first = new Node;
+  last = new Node;
+  last->prev=first;
+  first->next=last;
+  first->prev = nullptr;
+  last->next = nullptr;
 
 
-  Node* p1= new Node; //allocerar och konstruerar classen Node i heapen
-  p1->tal = data; //tilldela int delen i classen, var
-
-  p1 -> next = &sentl.tal;
-  p1 -> prev = sentl.prev;
-
-  sentl.prev = &p1->tal;
-
-  if(p1->next==sentl.tal)
+    for (int i: medlemmar)
   {
-  sentf.next = &p1->tal;
+    insert(i);
   }
+}
 
-  delete p1;
+void Sorted_List::insert(int  data)
+{
+
+  Node* p1= new Node{}; //allocerar och konstruerar classen Node i heapen
+  p1->tal = data; //tilldela int delen i classen, data
+
+  p1 -> prev = last->prev;
+  p1 -> next = first->next;
+
+  last->prev = p1;
+  first->next=p1;
+}
+
+Sorted_List::Node::Node()
+:next{nullptr},tal{0},prev{nullptr}
+{}
+
+Sorted_List::Node::~Node()
+{
+  if(next)
+{
+  delete next;
+}
+
 }
