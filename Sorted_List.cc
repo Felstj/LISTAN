@@ -27,7 +27,7 @@ bool Sorted_List::is_empty()
 }
 
  Sorted_List::Sorted_List(initializer_list<int> medlemmar)
- :first{},last{},sentf{},sentl{}, Lista(medlemmar)
+ :first{},last{},sentf{},sentl{}, Lista{medlemmar}
 {
   first = &sentf;
   last = &sentl;
@@ -35,17 +35,18 @@ bool Sorted_List::is_empty()
   sentl.next = nullptr;
   //får för mig att detta är det ända denna konstuktorn skall göra
   //resten skall lösas på andra ställen.
-    sort(Lista.begin(),Lista.end());
+  sort(Lista.begin(),Lista.end());
     int tmp;
     for (size_t i{0};i<Lista.size();++i)
     {
 
-      tmp=Lista.at(i)
+      tmp=Lista.at(i);
       insert(tmp);
     }
+    //shitty comment;
 
 }
-Sorted_List Sorted_List::insert(int  data)
+void Sorted_List::insert(int  data)
 {
 
 
@@ -57,7 +58,7 @@ Sorted_List Sorted_List::insert(int  data)
 
   sentl.prev = &p1->tal;
 
-  if(p1->next==sentl.tal)
+  if(p1->*next==&sentl.tal)
   {
   sentf.next = &p1->tal;
   }
