@@ -77,3 +77,25 @@ Sorted_List::Node::~Node()
 }
 
 }
+
+
+int Sorted_List::get_index(int index)
+{
+  Node *curr=first;
+  int ret;
+  if(is_empty())
+  {
+    return 0;
+
+  }
+  else{
+
+for (int i{0}; i<index; ++i)
+{
+curr=curr->next;
+ret=curr->tal;
+}
+return ret;
+}
+delete curr;
+}
