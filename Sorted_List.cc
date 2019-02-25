@@ -4,19 +4,28 @@
 
 using namespace std;
 Sorted_List::Sorted_List()
-:first{}, last{}, sentf{}, sentl{}
+:first{}, last{}
 {
-  first = &sentf; //first obectet i classen pekar nu på den första sentinellen
-  last = &sentl;  //last obectet i classen pekar nu på den sista sentinellen
-  sentf.prev = nullptr;
-  sentl.next = nullptr;
-  sentf.next = &sentl.tal;
-  sentl.prev = &sentf.tal;
+  first = new Node;
+  last = new Node;
+  first->next=last;
+  last->prev=first;
+  first->prev = nullptr;
+  last->next = nullptr;
+
+}
+
+Sorted_List::~Sorted_List()
+{
+  if(first->next)
+  {
+delete first;
+  }
 }
 
 bool Sorted_List::is_empty()
 {
-  if (sentf.next == &sentl.tal )
+  if (first->next == last && last->prev==first)
   {
     return true;
   }
@@ -27,6 +36,7 @@ bool Sorted_List::is_empty()
 }
 
  Sorted_List::Sorted_List(initializer_list<int> medlemmar)
+<<<<<<< HEAD
  :first{},last{},sentf{},sentl{}, Lista{medlemmar}
 {
   first = &sentf;
@@ -44,24 +54,56 @@ bool Sorted_List::is_empty()
       insert(tmp);
     }
     //shitty comment;
+=======
+ :first{},last{}
+{
+  first = new Node;
+  last = new Node;
+  last->prev=first;
+  first->next=last;
+  first->prev = nullptr;
+  last->next = nullptr;
 
+>>>>>>> d92e66848496cb8585166fd94163d7c5ebf7ab0a
+
+    for (int i: medlemmar)
+  {
+    insert(i);
+  }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d92e66848496cb8585166fd94163d7c5ebf7ab0a
 void Sorted_List::insert(int  data)
 {
 
+  Node* p1= new Node{}; //allocerar och konstruerar classen Node i heapen
+  p1->tal = data; //tilldela int delen i classen, data
 
-  Node* p1= new Node; //allocerar och konstruerar classen Node i heapen
-  p1->tal = data; //tilldela int delen i classen, var
+  p1 -> prev = last->prev;
+  p1 -> next = first->next;
 
-  p1 -> next = &sentl.tal;
-  p1 -> prev = sentl.prev;
+  last->prev = p1;
+  first->next=p1;
+}
 
-  sentl.prev = &p1->tal;
+Sorted_List::Node::Node()
+:next{nullptr},tal{0},prev{nullptr}
+{}
 
+<<<<<<< HEAD
   if(p1->*next==&sentl.tal)
   {
   sentf.next = &p1->tal;
   }
+=======
+Sorted_List::Node::~Node()
+{
+  if(next)
+{
+  delete next;
+}
+>>>>>>> d92e66848496cb8585166fd94163d7c5ebf7ab0a
 
-  delete p1;
 }
