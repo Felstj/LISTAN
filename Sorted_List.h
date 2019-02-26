@@ -10,6 +10,8 @@ public:
  Sorted_List(std::initializer_list<int> medlemmar);
  void insert(int data);
  int get_index(int index);
+ void sort();
+ void remove(int index);
   //konstruktor som kan ta varierande många integers
   bool is_empty();
   ~Sorted_List();

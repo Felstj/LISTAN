@@ -97,5 +97,64 @@ ret=curr->tal;
 }
 return ret;
 }
+}
+
+
+void Sorted_List::remove(int index)
+{
+Node *curr=first;
+Node *precurr=curr; // något som pekar på det curr pekade på förra gången för att hålla ihop listan.
+if(is_empty())
+{
+  index+1; //error egentligen
+}
+else
+{
+for(int i{0}; i<index; ++i)
+{
+  precurr=curr;
+  curr=curr->next;
+}
+
+curr->next->prev=precurr;
+precurr->next=curr->next; //länkar ihop listan innan man raderar "curr"
 delete curr;
+
+}
+
+
+
+}
+
+void Sorted_List::sort()
+{
+    Node* curr=first;
+    Node* starter;
+    int max{0};
+
+    while(curr->next)
+    {
+      curr =curr->next; //kanske längst ner?
+      max = curr->tal;
+      starter = first->next; //för inre loop
+
+        while(starter->next)
+        {
+          //hitta den nod som har störst tal
+          if (max<starter->tal)
+          {
+            max = starter->tal;
+
+          }
+          starter = starter->next;
+        }
+        //sätt in talet i rätt ordning
+        insert(max);
+        // flytta om alla pekare
+         //listan blir nu hel men man tappar en nod ur den länkade listan.
+        curr->prev=curr->next;
+        curr->next=curr->prev;
+        //ta bort den nod som curr pekar på.
+        delete curr;
+}
 }
