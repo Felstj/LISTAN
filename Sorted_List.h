@@ -12,6 +12,8 @@ public:
  int get_index(int index);
  void sort();
  void remove(int index);
+ void sortny();
+ //Node* indexptr();
   //konstruktor som kan ta varierande många integers
   bool is_empty();
   ~Sorted_List();
