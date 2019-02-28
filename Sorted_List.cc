@@ -2,6 +2,7 @@
 #include <vector>
 #include <initializer_list>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 Sorted_List::Sorted_List()
@@ -24,7 +25,7 @@ delete first;
   }
 }
 
-bool Sorted_List::is_empty()
+bool Sorted_List::is_empty() const
 {
   if (first->next == last && last->prev==first)
   {
@@ -50,50 +51,81 @@ Sorted_List::Sorted_List(initializer_list<int> medlemmar)
    for (int i: medlemmar)
  {
    insert(i);
+
  }
- sort();
+
 }
 
-Sorted_List Sorted_List::get_list()
+Sorted_List& Sorted_List::operator =(Sorted_List const& rhs)
 {
+
+  Node* curr=rhs.first;
+
+  if(is_empty()==false)
+{
+for (int i{0}; i<size(); ++i)
+  {
+    remove(i);
+  }
+}
+
+for (int i{0};i<rhs.size();i++)
+{
+  curr=curr->next;
+   insert(curr->tal);
+
+}
+  curr=nullptr;
   return *this;
-}
 
-Sorted_List::Sorted_List(const Sorted_List & L):first{L.first}, last{L.last}
+  }
+
+Sorted_List::Sorted_List(Sorted_List const& L):Sorted_List{}
 {
-
+  *this=L;
 }
 
-  void Sorted_List::insert(int  data)
+void Sorted_List::insert(int  data)
 {
-  //first in list
-  Node* p1= new Node{}; //allocerar och konstruerar classen Node i heapen
-  p1->tal = data; //tilldela int delen i classen, data
+  Node* curr=first;
+  Node* p1=new Node;
+  p1->tal=data;
 
-  p1 -> prev = first;
-  p1->next = first->next;
-  first->next->prev=p1;
-  first->next=p1;
+while (curr->next->next)
+  {
+    curr=curr->next;
+    if (p1->tal<=curr->tal)
+      {
+      p1->next=curr;
+      p1->prev=curr->prev;
+      curr->prev->next=p1;
+      curr->prev=p1;
+      return;
+    }
 
+  }
+    p1->next=last;
+    p1->prev=curr;
+    curr->next=p1;
+    last->prev=p1;
 
+    return;
 }
 
 
-Sorted_List::Node::Node()
-:next{nullptr},tal{0},prev{nullptr}
-{}
+
 
 Sorted_List::Node::~Node()
 {
   if(next)
-{
-  delete next;
-}
+  {
+    delete next;
+  }
 
 }
 
 
-int Sorted_List::get_index(int index)
+int Sorted_List::get_index(int index)const
 {
 
   Node *curr=first;
@@ -120,11 +152,7 @@ void Sorted_List::remove(int index)
 {
 Node *curr=first;
 Node *precurr=curr; // något som pekar på det curr pekade på förra gången för att hålla ihop listan.
-if(is_empty())
-{
-  index+1; //error egentligen
-}
-else if(index>size())
+ if(index>size() || index==0)
 {
 throw logic_error("index utanför listan");
 
@@ -136,7 +164,7 @@ for(int i{0}; i<index; ++i)
 
   precurr=curr;
   curr=curr->next;
-  cout<<curr->tal;
+
 }
 
 curr->next->prev=precurr;
@@ -220,7 +248,7 @@ else
 
 }
 
-int Sorted_List::size()
+int Sorted_List::size() const
 {
 Node* curr=first;
 int ret{0};
@@ -238,7 +266,24 @@ return ret;
 }
 }
 
+ stringstream Sorted_List::print(Sorted_List const& L)const
+{
+  stringstream ss;
+  for (int i{0}; i<L.size();i++)
+  {
+    ss<<L.get_index(i);
+  }
+  return ss;
+  }
 
+  void Sorted_List::printny(Sorted_List const& L)const
+ {
+
+    for (int i{1}; i<L.size()+1;i++)
+    {
+      cout<<L.get_index(i);
+    }
+   }
 
 // Node* Sorted_List::get_indexptr(int index)
 // {
@@ -250,9 +295,3 @@ return ret;
 //     }
 //   return indexptr;
 //   }
-
-// ostream& operator <<(ostream& os, Sorted_List const& L)
-// {
-// for(int i{0}; i<size(); ++i)
-// os << get_index(i);
-// }

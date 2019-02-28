@@ -1,5 +1,7 @@
 #include "catch.hpp"
 #include "Sorted_List.h"
+#include <iostream>
+#include <sstream>
 
 //Länkad lista
 using namespace std;
@@ -84,22 +86,34 @@ CHECK_THROWS(I.remove(7));
 }
 }
 
-TEST_CASE("kopiering")
+TEST_CASE("TILLDELNING")
 {
 Sorted_List L{3,2,6};
-Sorted_List LC{L};
+Sorted_List LC{};
+LC=L;
 CHECK(LC.get_index(1)==2);
+CHECK(LC.get_index(2)==3);
 
+
+SECTION("KOPIERING")
+{
+  Sorted_List P{2,7,3};
+  Sorted_List PC{P};
+  CHECK(PC.get_index(2)==3);
+  CHECK(PC.get_index(3)==7);
+  PC.insert(10);
+  CHECK(PC.get_index(4)==10);
+}
 
 }
 
 
+TEST_CASE("utskrift")
+{
+Sorted_List L{1,5,7,10};
+  cout<<" "<<'\n';
+  L.printny(L);
 
-
-// TEST_CASE("utskrift")
-// {
-// Sorted_List L{1,5,7,10};
-//
-// cout<<L;
-//
-// }
+}
+#if 0
+#endif
