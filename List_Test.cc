@@ -25,16 +25,16 @@ TEST_CASE("Filled list")
 TEST_CASE("Check index")
 {
 Sorted_List L{5,3,7};
-CHECK(L.get_index(1)==7);
-CHECK(L.get_index(2)==3);
-CHECK(L.get_index(3)==5);
+CHECK(L.get_index(1)==3);
+CHECK(L.get_index(2)==5);
+CHECK(L.get_index(3)==7);
 
 }
 
 TEST_CASE("sorted list?")
 {
 Sorted_List L{4,3,7};
-L.sortny();
+
 CHECK(L.get_index(1)==3);
 CHECK(L.get_index(2)==4);
 CHECK(L.get_index(3)==7);
@@ -50,7 +50,7 @@ CHECK(L.is_empty());
 TEST_CASE("removemore")
 {
 Sorted_List L{1,5,7,4};
-L.sortny();
+
 CHECK(L.get_index(1)==1);
 CHECK(L.get_index(2)==4);
 CHECK(L.get_index(3)==5);
@@ -83,3 +83,23 @@ CHECK_THROWS(I.remove(7));
 
 }
 }
+
+TEST_CASE("kopiering")
+{
+Sorted_List L{3,2,6};
+Sorted_List LC{L};
+CHECK(LC.get_index(1)==2);
+
+
+}
+
+
+
+
+// TEST_CASE("utskrift")
+// {
+// Sorted_List L{1,5,7,10};
+//
+// cout<<L;
+//
+// }

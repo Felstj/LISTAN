@@ -51,9 +51,20 @@ Sorted_List::Sorted_List(initializer_list<int> medlemmar)
  {
    insert(i);
  }
+ sort();
 }
 
-void Sorted_List::insert(int  data)
+Sorted_List Sorted_List::get_list()
+{
+  return *this;
+}
+
+Sorted_List::Sorted_List(const Sorted_List & L):first{L.first}, last{L.last}
+{
+
+}
+
+  void Sorted_List::insert(int  data)
 {
   //first in list
   Node* p1= new Node{}; //allocerar och konstruerar classen Node i heapen
@@ -87,12 +98,7 @@ int Sorted_List::get_index(int index)
 
   Node *curr=first;
   int ret;
-  if(is_empty())
-  {
-    return 0;
-
-  }
-  else if(index>size())
+if(index>size() || index==0)
   {
 
 throw logic_error("index utanför listan");
@@ -145,7 +151,7 @@ delete curr;
 
 
 
-void Sorted_List::sortny()
+void Sorted_List::sort()
 {
   Node* curr=first->next;
   Node* looper=nullptr;
@@ -231,3 +237,22 @@ while(curr->next!=last)
 return ret;
 }
 }
+
+
+
+// Node* Sorted_List::get_indexptr(int index)
+// {
+//   Node* indexptr=first;
+//
+//   for (int i{0}; i<index; ++i)
+//     {
+//       indexptr=indexptr->next;
+//     }
+//   return indexptr;
+//   }
+
+// ostream& operator <<(ostream& os, Sorted_List const& L)
+// {
+// for(int i{0}; i<size(); ++i)
+// os << get_index(i);
+// }
